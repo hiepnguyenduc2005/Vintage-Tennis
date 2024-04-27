@@ -17,7 +17,7 @@ img.fun {
     width: 25%;
 }
 
-h1.name {
+h1.title {
     color:yellow;
     font-size: 50px;
 }
@@ -28,6 +28,7 @@ h1.name {
 
 h3 {
     color:white !important; 
+    font-size: 25px;
 }
 .origin .speed .vote {
     margin-bottom: 20px;

@@ -26,6 +26,7 @@ function App() {
       element: <Create />
     }
   ]);
+  
 
   return (
     <div className='whole-page'>

@@ -2,23 +2,34 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import './Default.css'
 import { supabase } from '../Client'
+import { useSearchParams } from 'react-router-dom';
 
 
 const Default = (props) => {
 
     const [posts, setPosts] = useState([]);
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const {data} = await supabase
-              .from('Tennis')
-              .select();
-          
-            // set state of posts
-            setPosts(data)
+          let query = supabase.from('Tennis').select();
+    
+          const searchQuery = searchParams.get('search');
+          if (searchQuery) {
+            query = query.ilike('title', `%${searchQuery}%`);
           }
+    
+          const { data, error } = await query;
+    
+          if (error) {
+            console.error('Error fetching posts', error);
+          } else {
+            setPosts(data);
+          }
+        };
+    
         fetchPosts();
-    }, [props]);
+      }, [searchParams]);
 
     const orderTime = () => {
         const newPosts = posts.sort((a, b) => {
@@ -40,6 +51,8 @@ const Default = (props) => {
         })
         setPosts([...newPosts]);
     }
+
+    
 
     
     return (

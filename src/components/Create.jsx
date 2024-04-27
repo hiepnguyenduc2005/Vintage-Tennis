@@ -6,24 +6,25 @@ import { supabase } from '../Client'
 
 const Create = () => {
 
-    const [post, setPost] = useState({title: "", content: "", image: "", password: "", question: false})
+    const [post, setPost] = useState({title: "", content: "", image: "", password: "", question: true})
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
-        setPost( (prev) => {
+        const { name, type, value, checked } = event.target;
+        setPost(prev => {
             return {
                 ...prev,
-                [name]:value,
-            }
-        })
-    }
+                [name]: type === 'checkbox' ? checked : value,
+            };
+        });
+        console.log(post);
+    };
 
     const createPost = async (event) => {
         event.preventDefault();
       
         await supabase
           .from('Tennis')
-          .insert({title: post.title, content: post.content, image: post.image, password: post.password, question: Boolean(post.question)})
+          .insert({title: post.title, content: post.content, image: post.image, password: post.password, question: post.question})
           .select();
       
         window.location = "/";
@@ -34,7 +35,7 @@ const Create = () => {
     return (
         <div>
             <h1>Create Your Post!</h1>
-            <form>
+            <form onSubmit={createPost}>
                 <label for="title">Title</label> <br />
                 <input type="text" id="title" name="title" onChange={handleChange} /><br />
                 <br/>
@@ -51,7 +52,13 @@ const Create = () => {
                 <input type="text" id="password" name="password" onChange={handleChange} /><br />
 
                 <label for="question">Question?</label><br />
-                <input type="checkbox" id="question" name="question" onChange={handleChange} /><br />
+                <input
+                    type="checkbox"
+                    id="question"
+                    name="question"
+                    checked={post.question || false} // Ensure the checked attribute is controlled
+                    onChange={handleChange}
+                /><br />
 
                 <input type="submit" value="Submit" onClick={createPost} />
             </form>

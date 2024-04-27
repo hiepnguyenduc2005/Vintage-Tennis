@@ -35,18 +35,32 @@ const PostPage = () => {
 
   const submitComment = async (event) => {
     event.preventDefault();
-    
-    // Update the comments array in the database
-    const { data, error } = await supabase
+    if (comments === null || comments.length === 0) {
+      const { data, error } = await supabase
       .from('Tennis')
-      .update({ comment: [...comments, newComment] })
+      .update({ comment: [newComment] })
       .eq('id', id);
     
-    if (error) {
-      console.error('Error submitting comment', error);
-    } else {
-      setComments([...comments, newComment]);
-      setNewComment(""); // Reset the new comment input
+      if (error) {
+        console.error('Error submitting comment', error);
+      } else {
+        setComments([newComment]);
+        setNewComment(""); // Reset the new comment input
+      }
+    }
+    else  {
+      // Update the comments array in the database
+      const { data, error } = await supabase
+        .from('Tennis')
+        .update({ comment: [...comments, newComment] })
+        .eq('id', id);
+      
+      if (error) {
+        console.error('Error submitting comment', error);
+      } else {
+        setComments([...comments, newComment]);
+        setNewComment(""); // Reset the new comment input
+      }
     }
   };
 
