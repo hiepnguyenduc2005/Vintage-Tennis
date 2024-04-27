@@ -43,7 +43,7 @@ Here's a walkthrough of implemented user stories:
 
 [Video Walkthrough](https://imgur.com/a/WmDrGTR.gif)
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
+GIF created with LiceCAP  
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
