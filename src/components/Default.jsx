@@ -68,8 +68,9 @@ const Default = (props) => {
             <button onClick={orderVote}>Order by Vote</button>
             <button onClick={filterQuestion}>
                 {isFilterActive ? "Show All" : "Filter by Question"}
-            </button>            
-            <div className="crewmate-gallery">
+            </button> 
+            <div className="spacer"></div>        
+            <div className="post-gallery">
             {
                 posts && posts.length > 0 ?
                 posts.map((post) =>  

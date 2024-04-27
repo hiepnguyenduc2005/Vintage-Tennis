@@ -1,11 +1,23 @@
-input {
+input[type=text] {
     margin-top: 10px;
-    width: 100%;
+    width: 75%;
+    min-width: 300px;
     height: 45px;
     border-radius: 8px;
     border: 1px solid transparent;
     font-size: 20px;
     padding-left: 10px;
+}
+
+input[type=checkbox]{
+    margin-top: 10px;
+    height: 45px;
+    width: 45px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 20px;
+    padding-left: 10px;
+
 }
 
 label {
@@ -14,7 +26,8 @@ label {
 
 textarea {
     border-radius: 8px;
-    width: 100%;
+    width: 75%;
+    min-width: 300px;
     border: 1px solid transparent;
     font-size: 20px;
     font-family: inherit;

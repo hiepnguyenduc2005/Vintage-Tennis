@@ -26,12 +26,25 @@ function App() {
       element: <Create />
     }
   ]);
+
+  const [bgColor, setBgColor] = useState(''); // Add state to control background color
+  
+  // This will be passed to Sidebar
+  const changeBackground = (color) => {
+    setBgColor(color);
+
+    console.log(color);
+  };
   
 
   return (
-    <div className='whole-page'>
-      <Sidebar />
-      {element}
+    <div className='whole-page' style={{ backgroundColor: bgColor }}>
+      <div>
+      <Sidebar changeBackground={changeBackground} />
+      </div>
+      <div className='content'>
+        {element}
+      </div>
     </div>
   )
 }

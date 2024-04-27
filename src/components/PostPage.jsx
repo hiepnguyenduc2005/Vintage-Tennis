@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { supabase } from '../Client';
+import './Edit.css';
 
 const PostPage = () => {
   const { id } = useParams(); // The id of the post
@@ -65,13 +66,13 @@ const PostPage = () => {
   };
 
   return (
-    <div>
+    <div style= {{width: '100%'}}>
       <h3>Comments</h3>
       {/* ... Display the post ... */}
       { (comments === null || comments.length === 0)
       ? <p>No comments yet</p> 
       : 
-        <ul>
+        <ul style= {{textAlign: 'left'}}>
         {comments.map((comment, index) => (
           <li key={index}>{comment}</li>
         ))}
@@ -81,8 +82,10 @@ const PostPage = () => {
 
       {/* Form for submitting a new comment */}
       <form onSubmit={submitComment}>
-        <label htmlFor="comment">New Comment:</label>
-        <textarea value={newComment} onChange={handleCommentChange} />
+        <div style= {{textAlign: 'left'}}>
+          <label htmlFor="comment" >New Comment:</label><br />
+        </div>
+        <textarea value={newComment} onChange={handleCommentChange} /><br />
         <button type="submit">Submit Comment</button>
       </form>
     </div>

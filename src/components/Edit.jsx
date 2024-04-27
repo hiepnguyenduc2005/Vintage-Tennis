@@ -92,7 +92,7 @@ const Edit = () => {
     return (
         <div>
             <h1>Update Your Post!</h1>
-            <form>
+            <form onSubmit={updatePost}>
             <label for="title">Title</label> <br />
                 <input type="text" id="title" name="title" value = {post.title} onChange={handleChange} /><br />
                 <br/>

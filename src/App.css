@@ -3,11 +3,12 @@ body {
   background-color: black;
   margin: auto;
   text-align: center;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
   }
+
+#root {
+  width: 100%;
+}
   
 
 .icons {
@@ -16,30 +17,19 @@ body {
   height: 30px;
 }
 
-.main-list{
-  border-bottom: solid 3px white;
-  padding: 25px;
-}
-
 .whole-page{
   padding: 50px;
   background: black;
   color: white;
+  text-align: center;
 }
 
-.tab {
-  display: inline-block;
-  margin-left: 75px;
-}
-
-.main-content{
-  margin-left: 200px;
+.content{
+  position: relative ;
   padding: 20px;
 }
 
 .sidebar {
-  width: 200px;
-  height: 100%;
   position: fixed;
   background: #eee;
   position: fixed;
@@ -59,3 +49,13 @@ img {
 }
 
 
+
+.btn.court-btn {
+  margin: 5px;
+  background-color: #fff; /* Default background */
+  border: 1px solid #ddd; /* Default border */
+}
+
+.btn.court-btn:hover {
+  opacity: 0.8;
+}

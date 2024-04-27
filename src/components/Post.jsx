@@ -9,7 +9,7 @@ import PostPage from './PostPage';
 const Post = () => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0});
+    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0, created_at: ""});
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -50,14 +50,14 @@ const Post = () => {
         event.preventDefault(); 
     }
 
-
+    const time = new Date(post.created_at).toLocaleString();
     return (
         <div className="single">
             {
                 post ?
-                    <div>
+                    <div style= {{height: 'auto'}}>
                         <h1 className="title">{post.title}</h1>
-                        <h2 className="stat">Content</h2>
+                        <h4 className="stat"><i><strong>Posted:</strong> {time}</i></h4>
                         <h3 className="content">{post.content}</h3>
                         <img src={post.image} alt="Post" className="image" />
                         <h3 className="stat">Vote: {count}</h3>
