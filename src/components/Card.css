@@ -1,0 +1,27 @@
+.Card {
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(153, 153, 153, 0.497);
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    margin-bottom: 25px;
+    width: 100%;
+    text-align: left;
+}
+
+Link {
+    text-decoration: none;
+}
+
+.title {
+    color:yellow;
+    font-size: 24px;
+}
+
+.time {
+    color:white;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
