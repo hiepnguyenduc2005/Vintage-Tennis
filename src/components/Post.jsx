@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Default.css';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../Client';
-// import { PostPage } from './PostPage';
+import PostPage from './PostPage';
 
 
 const Post = () => {
@@ -75,6 +75,7 @@ const Post = () => {
                 : <h2>{'Not Valid 😞'}</h2>
             }
             <button className="voteButton" onClick={updateCount} >👍 Vote Count: {count}</button> <br/><br/>
+            <PostPage />
         </div>  
     )
 }

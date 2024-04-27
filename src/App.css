@@ -16,11 +16,6 @@ body {
   height: 30px;
 }
 
-ul {
-  list-style: none;
-  margin: 25px 50px 75px 30px;
-}
-
 .main-list{
   border-bottom: solid 3px white;
   padding: 25px;

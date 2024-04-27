@@ -1,11 +1,10 @@
 // ... Other imports
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../Client';
 
 const PostPage = () => {
   const { id } = useParams(); // The id of the post
-  const [post, setPost] = useState(null); // State for the post data
   const [comments, setComments] = useState([]); // State for the comments
   const [newComment, setNewComment] = useState(""); // State for a new comment
 
@@ -15,14 +14,15 @@ const PostPage = () => {
     const fetchComments = async () => {
       const { data: commentsData, error } = await supabase
         .from('Tennis')
-        .select('comments')
+        .select('comment')
         .eq('id', id)
         .single();
       
       if (error) {
         console.error('Error fetching comments', error);
       } else {
-        setComments(commentsData.comments);
+        setComments(commentsData.comment);
+        console.log(comments);
       }
     };
     
@@ -39,7 +39,7 @@ const PostPage = () => {
     // Update the comments array in the database
     const { data, error } = await supabase
       .from('Tennis')
-      .update({ comments: [...comments, newComment] })
+      .update({ comment: [...comments, newComment] })
       .eq('id', id);
     
     if (error) {
@@ -52,17 +52,18 @@ const PostPage = () => {
 
   return (
     <div>
+      <h3>Comments</h3>
       {/* ... Display the post ... */}
-      
-      {/* Display existing comments */}
-      <div>
+      <ul>
         {comments.map((comment, index) => (
-          <div key={index}>{comment}</div>
+          <li key={index}>{comment}</li>
         ))}
-      </div>
+      </ul>
+      {/* Display existing comments */}
 
       {/* Form for submitting a new comment */}
       <form onSubmit={submitComment}>
+        <label htmlFor="comment">New Comment:</label>
         <textarea value={newComment} onChange={handleCommentChange} />
         <button type="submit">Submit Comment</button>
       </form>
