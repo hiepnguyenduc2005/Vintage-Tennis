@@ -67,7 +67,7 @@ const PostPage = () => {
 
   return (
     <div style= {{width: '100%'}}>
-      <h3>Comments</h3>
+      <h3 style={{textAlign: 'left'}}>Comments</h3>
       {/* ... Display the post ... */}
       { (comments === null || comments.length === 0)
       ? <p>No comments yet</p> 
@@ -82,10 +82,7 @@ const PostPage = () => {
 
       {/* Form for submitting a new comment */}
       <form onSubmit={submitComment}>
-        <div style= {{textAlign: 'left'}}>
-          <label htmlFor="comment" >New Comment:</label><br />
-        </div>
-        <textarea value={newComment} onChange={handleCommentChange} /><br />
+        <textarea value={newComment} onChange={handleCommentChange} placeholder='Leave a new comment' /><br />
         <button type="submit">Submit Comment</button>
       </form>
     </div>

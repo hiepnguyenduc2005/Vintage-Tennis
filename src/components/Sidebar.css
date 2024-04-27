@@ -1,0 +1,107 @@
+/* Apply a cohesive color theme and improved spacing */
+.navbar {
+    background: #f8f9fa; /* Light color for the navbar background */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    padding: 0.5rem 1rem; /* Padding for breathing space */
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out the logo, nav, and buttons */
+  }
+  
+  /* Styling for the brand logo and animation */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem; /* Larger font size for brand name */
+    font-weight: bold;
+    color: #323232; /* Dark color for text for better readability */
+    text-decoration: none; /* Removes underline from links */
+  }
+  
+  .navbar-brand:hover {
+    animation: swing 1s ease; /* Animation on hover */
+  }
+  
+  @keyframes swing {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  /* Styling for the tennis icon */
+  #icon {
+    margin-right: 0.5rem; /* Space between icon and text */
+    width: 50px; /* Fixed width */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Enhanced button styles */
+  .btn.court-btn {
+    margin: 0 5px;
+    padding: 0.5rem 1rem; /* Larger padding for clickable area */
+    border: none; /* Remove border for a cleaner look */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+    color: white;
+  }
+  
+  .btn.court-btn:hover {
+    background-color: black; /* White text on hover */
+    color: white !important;
+    border: none !important; /* Black background on hover */
+  }
+  
+  /* Specific color for each button to indicate court surface */
+  .btn-grass { background-color: #27ae60; }
+  .btn-grass:hover { background-color: #2ecc71; }
+  
+  .btn-clay { background-color: #e67e22; }
+  .btn-clay:hover { background-color: #d35400; }
+  
+  .btn-hard { background-color: #2980b9; }
+  .btn-hard:hover { background-color: #3498db; }
+
+  .blueActive {
+    color: #3498db !important;
+    background-color: #f8f9fa;
+    border: solid #3498db !important;
+  }
+
+  .greenActive {
+    color: #2ecc71 !important;
+    background-color: #f8f9fa;
+    border: solid #2ecc71 !important;
+  }
+
+    .orangeActive {
+        color: #d35400 !important;
+        background-color: #f8f9fa;
+        border: solid #d35400 !important;
+    }
+  
+
+    .navbar-brand{
+        color:rebeccapurple !important;
+    }
+    /* Override Bootstrap form-inline for larger screens */
+@media (min-width: 992px) {
+    .navbar .form-inline {
+      display: flex;
+      margin: 0 auto; /* Center the search form */
+      width: 100%; /* Use full width */
+      max-width: 500px; /* Set a max-width for the search box */
+    }
+  
+    .form-inline .form-control {
+      width: 100%; /* Make the search input take up all available width */
+    }
+  }
+  
+  /* For smaller screens, you can adjust as needed */
+  @media (max-width: 991px) {
+    .navbar .form-inline {
+      width: auto; /* Or 100% to fill the width */
+      margin-top: 10px; /* Add some margin at the top */
+    }
+  }
+  

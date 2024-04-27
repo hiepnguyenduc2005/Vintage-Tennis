@@ -1,9 +1,8 @@
-// Sidebar.js
-
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from 'react';
+import './Sidebar.css';
 
 const Sidebar = ({ changeBackground }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,26 +16,20 @@ const Sidebar = ({ changeBackground }) => {
     navigate(`/?search=${encodeURIComponent(searchQuery)}`);
   };
 
-  const greenClick = () => {
-    setGreenClicked(true);
-    setOrangeClicked(false);
-    setBlueClicked(false);
-  }
-
-  const orangeClick = () => {
-    setOrangeClicked(true);
-    setGreenClicked(false);
-    setBlueClicked(false);
-  }
-
-  const blueClick = () => {
-    setBlueClicked(true);
+  const handleBackgroundChange = (color, type) => {
+    changeBackground(color);
+    // Reset all buttons to false
     setGreenClicked(false);
     setOrangeClicked(false);
-  }
+    setBlueClicked(false);
+    // Then activate the clicked one
+    if (type === 'green') setGreenClicked(true);
+    if (type === 'orange') setOrangeClicked(true);
+    if (type === 'blue') setBlueClicked(true);
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <a className="navbar-brand" href="/">Vintage Tennis</a>
+      <a className="navbar-brand" href="/">Vintage Tennis<img id="icon" src="https://img.freepik.com/free-vector/two-racket-tennis-ball-illustration_24877-60158.jpg?size=338&ext=jpg&ga=GA1.1.1224184972.1714176000&semt=sph"></img></a>
 
       <div className="navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
@@ -56,23 +49,17 @@ const Sidebar = ({ changeBackground }) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        </form>
+        <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+      </form>
       </div>
-      <button onClick={() => {
-          changeBackground('green')
-          greenClick()
-        } 
-      } className="btn court-btn" style={{ backgroundColor: greenClicked ? 'green' : ''  }}>Grass</button>
-      <button onClick={() => {
-          changeBackground('orange')
-          orangeClick()
-        }
-      } className="btn court-btn" style={{ backgroundColor: orangeClicked ? 'orange' : ''  }}>Clay</button>
-      <button onClick={() => {
-          changeBackground('blue')
-          blueClick()
-        }
-      } className="btn court-btn" style={{ backgroundColor: blueClicked ? 'blue' : ''  }}>Hard</button>
+      <div className="court-buttons">
+        <button onClick={() => handleBackgroundChange('green', 'green')}
+          className={`btn court-btn btn-grass ${greenClicked ? 'greenActive' : ''}`}>Grass</button>
+        <button onClick={() => handleBackgroundChange('orange', 'orange')}
+          className={`btn court-btn btn-clay ${orangeClicked ? 'orangeActive' : ''}`}>Clay</button>
+        <button onClick={() => handleBackgroundChange('blue', 'blue')}
+          className={`btn court-btn btn-hard ${blueClicked ? 'blueActive' : ''}`}>Hard</button>
+      </div>
     </nav>
   );
 };

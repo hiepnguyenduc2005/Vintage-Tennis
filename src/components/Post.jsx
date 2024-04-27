@@ -55,15 +55,14 @@ const Post = () => {
         <div className="single">
             {
                 post ?
-                    <div style= {{height: 'auto'}}>
-                        <h1 className="title">{post.title}</h1>
-                        <h4 className="stat"><i><strong>Posted:</strong> {time}</i></h4>
-                        <h3 className="content">{post.content}</h3>
+                    <div>
+                        <h1 className="title" style={{textAlign: 'left'}}>{post.title}</h1>
+                        <h4 className="stat" style={{textAlign: 'left'}}><i><strong>Posted:</strong> {time}</i></h4>
+                        <h4 className="content" style={{textAlign: 'left'}}>{post.content}</h4>
                         <img src={post.image} alt="Post" className="image" />
                         <h3 className="stat">Vote: {count}</h3>
                         <form onSubmit={handleSubmit}>
-                            <label for="password">Password</label> <br />
-                            <input type="password" id="password" name="password" onChange={handleChange}/>
+                            <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
                         </form>
                         {post.password === password ? (
                             <Link to={`/edit/${post.id}`}><button>Edit/Delete</button></Link>

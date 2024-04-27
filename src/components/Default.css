@@ -26,6 +26,11 @@ h1.title {
     font-size: 15px;
 }
 
+.content {
+    color:white;
+    font-weight: 250;
+}
+
 h3 {
     color:white !important; 
     font-size: 25px;
@@ -35,7 +40,7 @@ h3 {
     font-size: 10px;
 }
 
-img {
+.image {
     width: 100%;
     max-width: 500px;
     height: auto;
@@ -43,12 +48,12 @@ img {
 
 .voteButton {
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 1px solid white;
     padding: 0.6em 1.2em;
     font-size: 15px;
     font-weight: 500;
     font-family: inherit;
-    background-color: #646cff;
+    background-color: black;
     color:white;
     cursor: pointer;
     transition: border-color 0.25s;

@@ -31,14 +31,19 @@ function App() {
   
   // This will be passed to Sidebar
   const changeBackground = (color) => {
-    setBgColor(color);
+    if (color === 'green')
+      setBgColor('2ecc71');
+    else if (color === 'orange')
+      setBgColor('d35400');
+    else if (color === 'blue')
+      setBgColor('3498db');
 
     console.log(color);
   };
   
 
   return (
-    <div className='whole-page' style={{ backgroundColor: bgColor }}>
+    <div className='whole-page' style={{ backgroundColor: `#${bgColor}` }}>
       <div>
       <Sidebar changeBackground={changeBackground} />
       </div>

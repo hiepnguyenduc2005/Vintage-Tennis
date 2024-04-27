@@ -31,33 +31,7 @@ body {
   padding: 20px;
 }
 
-.sidebar {
-  position: fixed;
-  background: #eee;
-  position: fixed;
-  font-size: larger;
-  font-weight: bolder;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  padding: 15px 10px;
-  display: flex;
-  flex-direction: column;
-}
-
 img {
   width: 50%;
   height: 50%;
-}
-
-
-
-.btn.court-btn {
-  margin: 5px;
-  background-color: #fff; /* Default background */
-  border: 1px solid #ddd; /* Default border */
-}
-
-.btn.court-btn:hover {
-  opacity: 0.8;
 }

@@ -93,22 +93,19 @@ const Edit = () => {
         <div>
             <h1>Update Your Post!</h1>
             <form onSubmit={updatePost}>
-            <label for="title">Title</label> <br />
-                <input type="text" id="title" name="title" value = {post.title} onChange={handleChange} /><br />
+            
+                <input type="text" id="title" name="title" value = {post.title} onChange={handleChange} placeholder='Title'/><br />
                 <br/>
 
-                <label for="content">Content</label> <br />
-                <textarea rows="4" cols="50" type="text" id="content" name="content" value = {post.content} onChange={handleChange} /><br />
+                <textarea rows="4" cols="50" type="text" id="content" name="content" value = {post.content} onChange={handleChange} placeholder='Content' /><br />
                 <br/>
 
-                <label for="image">Image URL</label> <br />
-                <input type="text" id="image" name="image" value = {post.image} onChange={handleChange} /><br />
+                <input type="text" id="image" name="image" value = {post.image} onChange={handleChange} placeholder='Image URL'/><br />
                 <br/>
 
-                <label for="password">Password</label> <br />
-                <input type="text" id="password" name="password" value = {post.password} onChange={handleChange} /><br />
+                <input type="password" id="password" name="password" value = {post.password} onChange={handleChange} placeholder='Password'/><br />
 
-                <label for="question">Question?</label><br />
+                <label for="question">Is it a question?</label>
                 <input
                     type="checkbox"
                     id="question"

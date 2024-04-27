@@ -9,9 +9,9 @@ const Card = (props) =>  {
   return (
       <div className="Card">
           <Link to={'/post/'+ props.id}>
+            <p className="time"><i>{"Posted at " + time}</i></p>
             <h2 className="title">{props.title}</h2>
-            <h3 className="time">{"Posted at " + time}</h3>
-            <h3 className="vote">{props.vote + " upvotes" }</h3>
+            <p className="vote">{props.vote + " upvotes" }</p>
           </Link>
       </div>
   );

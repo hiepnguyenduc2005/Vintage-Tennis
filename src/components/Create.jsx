@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import './Create.css'
+import './Edit.css'
 import { supabase } from '../Client'
 
 
@@ -35,23 +35,19 @@ const Create = () => {
     return (
         <div>
             <h1>Create Your Post!</h1>
-            <form onSubmit={createPost}>
-                <label for="title">Title</label> <br />
-                <input type="text" id="title" name="title" onChange={handleChange} /><br />
+            <form onSubmit={createPost} className='create'>
+                <input type="text" id="title" name="title" onChange={handleChange} placeholder='Title' autoFocus/><br />
                 <br/>
 
-                <label for="content">Content</label> <br />
-                <textarea rows="4" cols="50" type="text" id="content" name="content" onChange={handleChange} /><br />
+                <textarea rows="4" cols="50" type="text" id="content" name="content" onChange={handleChange} placeholder='Content'/><br />
+                <br />
+                <input type="text" id="image" name="image" onChange={handleChange} placeholder='Image URL'/><br />
                 <br/>
 
-                <label for="image">Image URL</label> <br />
-                <input type="text" id="image" name="image" onChange={handleChange} /><br />
+                <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/><br />
                 <br/>
 
-                <label for="password">Password</label> <br />
-                <input type="text" id="password" name="password" onChange={handleChange} /><br />
-
-                <label for="question">Question?</label><br />
+                <label for="question">Is it a question?</label>
                 <input
                     type="checkbox"
                     id="question"
