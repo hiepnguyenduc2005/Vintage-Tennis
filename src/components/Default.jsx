@@ -55,7 +55,7 @@ const Default = (props) => {
                 posts && posts.length > 0 ?
                 posts.map((post) =>  
                    <Card id={post.id} title={post.title} time={post.created_at} vote={post.vote}/>
-                ) : <h2>{'No Crewmates Yet 😞'}</h2>
+                ) : <h2>{'No Posts Yet 😞'}</h2>
             }
             </div>
         </div>  

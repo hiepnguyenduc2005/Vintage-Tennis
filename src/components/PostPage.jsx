@@ -54,11 +54,15 @@ const PostPage = () => {
     <div>
       <h3>Comments</h3>
       {/* ... Display the post ... */}
-      <ul>
+      { (comments === null || comments.length === 0)
+      ? <p>No comments yet</p> 
+      : 
+        <ul>
         {comments.map((comment, index) => (
           <li key={index}>{comment}</li>
         ))}
       </ul>
+      }
       {/* Display existing comments */}
 
       {/* Form for submitting a new comment */}

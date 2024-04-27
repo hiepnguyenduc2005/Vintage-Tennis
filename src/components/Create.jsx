@@ -40,7 +40,7 @@ const Create = () => {
                 <br/>
 
                 <label for="content">Content</label> <br />
-                <input type="text" id="content" name="content" onChange={handleChange} /><br />
+                <textarea rows="4" cols="50" type="text" id="content" name="content" onChange={handleChange} /><br />
                 <br/>
 
                 <label for="image">Image URL</label> <br />
