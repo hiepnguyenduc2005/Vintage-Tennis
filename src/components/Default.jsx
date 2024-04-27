@@ -7,29 +7,35 @@ import { useSearchParams } from 'react-router-dom';
 
 const Default = (props) => {
 
+    const [isFilterActive, setIsFilterActive] = useState(false);
+
     const [posts, setPosts] = useState([]);
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const fetchPosts = async () => {
-          let query = supabase.from('Tennis').select();
+            let query = supabase.from('Tennis').select();
     
-          const searchQuery = searchParams.get('search');
-          if (searchQuery) {
-            query = query.ilike('title', `%${searchQuery}%`);
-          }
+            const searchQuery = searchParams.get('search');
+            if (searchQuery) {
+                query = query.ilike('title', `%${searchQuery}%`);
+            }
     
-          const { data, error } = await query;
+            let { data, error } = await query;
     
-          if (error) {
-            console.error('Error fetching posts', error);
-          } else {
-            setPosts(data);
-          }
+            if (error) {
+                console.error('Error fetching posts', error);
+            } else {
+                // Apply the filter if isFilterActive is true
+                if (isFilterActive) {
+                    data = data.filter(post => post.question);
+                }
+                setPosts(data);
+            }
         };
     
         fetchPosts();
-      }, [searchParams]);
+    }, [searchParams, isFilterActive]);
 
     const orderTime = () => {
         const newPosts = posts.sort((a, b) => {
@@ -46,11 +52,9 @@ const Default = (props) => {
     }
     
     const filterQuestion = () => {
-        const newPosts = posts.filter((post) => {
-            return post.question;
-        })
-        setPosts([...newPosts]);
-    }
+        setIsFilterActive(!isFilterActive);
+    };
+    
 
     
 
@@ -62,7 +66,9 @@ const Default = (props) => {
             <h3>Click on a post to see more details</h3>
             <button onClick={orderTime}>Order by Time</button>
             <button onClick={orderVote}>Order by Vote</button>
-            <button onClick={filterQuestion}>Filter by Question</button>
+            <button onClick={filterQuestion}>
+                {isFilterActive ? "Show All" : "Filter by Question"}
+            </button>            
             <div className="crewmate-gallery">
             {
                 posts && posts.length > 0 ?
