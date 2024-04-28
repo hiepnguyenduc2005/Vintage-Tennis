@@ -11,12 +11,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const navbarRef = useRef(null);
+  const [user, setUser] = useState(localStorage.getItem('userID')); // Add state to store the user ID
   const [navbarHeight, setNavbarHeight] = useState(0);
   useEffect(() => {
     // Check if the user ID already exists in localStorage
-    if (!localStorage.getItem('userID')) {
+    if (!user) {
       // If not, create a new random user ID and store it
       localStorage.setItem('userID', uuidv4());
+      setUser(localStorage.getItem('userID'));
     }
   }, []);
 
@@ -65,7 +67,7 @@ function App() {
       </div>
       <div className='content' style={{ paddingTop: navbarHeight + 'px'}}>
         <div style={{display:'flex', justifyContent:'end', paddingBottom:'10px'}}>
-          <b style={{paddingRight:'5px'}}>User:</b>{localStorage.getItem('userID')}
+          <b style={{paddingRight:'5px'}}>User:</b>{user}
         </div>
         {element}
       </div>
