@@ -69,11 +69,10 @@ const Post = () => {
                         ) : (
                             <p>Not Valid Password to Edit/Delete😞</p>
                         )}
-                        
+                        <PostPage />
                     </div>
                 : <h2>{'Not Valid 😞'}</h2>
             }
-            <PostPage />
         </div>  
     )
 }
