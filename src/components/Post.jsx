@@ -9,7 +9,8 @@ import Spinner from './Spinner';
 const Post = () => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0, created_at: "", user_id:""});
+    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0, created_at: "", user_id:"", repost: null});
+    const [repost, setRepost] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -22,12 +23,26 @@ const Post = () => {
               .single();
           
             // set state of posts
-            setPost(data)
+            setPost(data);
+            console.log(data);
+
+            if (data.repost) {
+              const { data: repostData, error: repostError } = await supabase
+                .from('Tennis')
+                .select()
+                .eq('id', data.repost)
+                .single();
+              if (repostError) {
+                throw repostError;
+              }
+              setRepost(repostData.title);
+              console.log(repostData);
+            }
+
             setIsLoading(false);
           }
         fetchPosts();
     }, [id]);
-
 
     const [count, setCount] = useState(0);
     const [password, setPassword] = useState("");
@@ -43,7 +58,7 @@ const Post = () => {
           .eq('id', id);
         setCount(count+1);
     }
-
+    
     const handleChange = (event) => {
         setPassword(event.target.value);
     }
@@ -54,7 +69,11 @@ const Post = () => {
 
     const isVideo = (url) => {
         return url.match(/\.(mp4|webm|ogg)$/i);
-      };
+      };   
+      
+    const toRepost = () => {
+        window.location = `/repost/${id}`;
+    }
 
     const MediaComponent = () => {
         const youtubeMatch = post.image.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
@@ -88,9 +107,17 @@ const Post = () => {
                     <h1 className="title" style={{textAlign: 'left'}}>{post.title}</h1>
                     <h4 className="stat" style={{textAlign: 'left'}}><i><strong>Posted:</strong> {time}</i></h4>
                     <h4 className="stat" style={{textAlign: 'left'}}><i><strong>by User:</strong> {post.user_id}</i></h4>
+                    {post.repost 
+                    ? <div style={{display: 'flex', justifyItems: 'left', alignItems: 'center'}}>
+                      <h4 className="stat" style={{textAlign: 'left'}}  ><i><strong>Reference Post:&nbsp;</strong></i></h4>
+                      <Link to={'/post/'+ post.repost} className='repost'>{repost}</Link> 
+                      </div>
+                    : null
+                    }
                     <h4 className="content" style={{textAlign: 'left'}}>{post.content}</h4>
                     <MediaComponent /><br/><br/>
                     <button className="voteButton" onClick={updateCount} >👍{count}</button><br/><br/>
+                    <button className="voteButton" onClick={toRepost}>Repost</button><br/><br/>
                     <form onSubmit={handleSubmit}>
                         <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
                     </form><br/>

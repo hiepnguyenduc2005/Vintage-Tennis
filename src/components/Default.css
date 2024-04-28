@@ -91,3 +91,8 @@ h3 {
     background-color: black;
     color: white;
 }
+
+.repost {
+    color: yellow;
+    font: 18px !important;
+}

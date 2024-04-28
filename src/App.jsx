@@ -6,6 +6,7 @@ import Default from './components/Default'
 import Create from './components/Create'
 import Post from './components/Post'
 import Edit from './components/Edit'
+import Repost from './components/Repost'
 import { useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'; 
 
@@ -42,6 +43,10 @@ function App() {
     {
       path:"/edit/:id",
       element: <Edit />
+    },
+    {
+      path:"/repost/:id",
+      element: <Repost />
     },
     {
       path:"/create",

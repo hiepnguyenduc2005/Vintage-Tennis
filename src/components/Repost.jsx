@@ -2,11 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import './Edit.css'
 import { supabase } from '../Client'
+import { useParams } from 'react-router-dom';
 
 
-const Create = () => {
+const Repost = () => {
 
-    const [post, setPost] = useState({title: "", content: "", image: "", password: "", question: false})
+    const {id} = useParams();
+    const [post, setPost] = useState({title: "", content: "", image: "", password: "", question: false, repost: id})
     const [uploading, setUploading] = useState(false);
 
     const handleChange = (event) => {
@@ -57,7 +59,7 @@ const Create = () => {
       
         await supabase
           .from('Tennis')
-          .insert({title: post.title, content: post.content, image: post.image, password: post.password, question: post.question, user_id: userID})
+          .insert({title: post.title, content: post.content, image: post.image, password: post.password, question: post.question, user_id: userID, repost: post.repost})
           .select();
       
         window.location = "/";
@@ -102,4 +104,4 @@ const Create = () => {
     )
 }
 
-export default Create
+export default Repost
