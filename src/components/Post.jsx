@@ -94,10 +94,10 @@ const Post = () => {
                     <form onSubmit={handleSubmit}>
                         <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
                     </form><br/>
-                    {post.password === password ? (
+                    {post.password === password && post.user_id === localStorage.getItem('user_id') ? (
                         <Link to={`/edit/${post.id}`}><button>Edit/Delete</button></Link>
                     ) : (
-                        <p>Not Valid Password to Edit/Delete😞</p>
+                        <p>Not Valid User or Password to Edit/Delete😞</p>
                     )}
                     <PostPage />
                 </div>
