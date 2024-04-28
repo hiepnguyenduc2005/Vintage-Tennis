@@ -94,7 +94,7 @@ const Post = () => {
                     <form onSubmit={handleSubmit}>
                         <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
                     </form><br/>
-                    {post.password === password && post.user_id === localStorage.getItem('user_id') ? (
+                    {post.password === password && post.user_id === localStorage.getItem('userID') ? (
                         <Link to={`/edit/${post.id}`}><button>Edit/Delete</button></Link>
                     ) : (
                         <p>Not Valid User or Password to Edit/Delete😞</p>
