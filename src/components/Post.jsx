@@ -55,15 +55,15 @@ const Post = () => {
         <div className="single">
             {
                 post ?
-                    <div>
+                    <div style={{width:'100%'}}>
                         <h1 className="title" style={{textAlign: 'left'}}>{post.title}</h1>
                         <h4 className="stat" style={{textAlign: 'left'}}><i><strong>Posted:</strong> {time}</i></h4>
                         <h4 className="content" style={{textAlign: 'left'}}>{post.content}</h4>
-                        <img src={post.image} alt="Post" className="image" />
-                        <h3 className="stat">Vote: {count}</h3>
+                        <img src={post.image} alt="Post" className="image" /><br/><br/>
+                        <button className="voteButton" onClick={updateCount} >👍{count}</button><br/><br/>
                         <form onSubmit={handleSubmit}>
                             <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
-                        </form>
+                        </form><br/>
                         {post.password === password ? (
                             <Link to={`/edit/${post.id}`}><button>Edit/Delete</button></Link>
                         ) : (
@@ -73,7 +73,6 @@ const Post = () => {
                     </div>
                 : <h2>{'Not Valid 😞'}</h2>
             }
-            <button className="voteButton" onClick={updateCount} >👍 Vote Count: {count}</button> <br/><br/>
             <PostPage />
         </div>  
     )

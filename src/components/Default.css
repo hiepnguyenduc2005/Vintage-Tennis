@@ -35,6 +35,7 @@ h3 {
     color:white !important; 
     font-size: 25px;
 }
+
 .origin .speed .vote {
     margin-bottom: 20px;
     font-size: 10px;
@@ -58,7 +59,35 @@ h3 {
     cursor: pointer;
     transition: border-color 0.25s;
 }
+
 .voteButton:hover {
     border-color: black;
+    background-color: white;
+    color: black;
 }
 
+.order{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+}
+
+.order-button{
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: white;
+    color:black;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.order-button:hover, .voteActive, .timeActive {
+    border-color: white;
+    background-color: black;
+    color: white;
+}

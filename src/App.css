@@ -35,3 +35,15 @@ img {
   width: 50%;
   height: 50%;
 }
+
+@media screen and (max-width: 992px) {
+  .whole-page{
+    padding-top: 300px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .whole-page{
+    padding-top: 80px;
+  }
+}

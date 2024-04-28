@@ -28,7 +28,7 @@ const Sidebar = ({ changeBackground }) => {
     if (type === 'blue') setBlueClicked(true);
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" style={{justifyContent:'center'}}>
       <a className="navbar-brand" href="/">Vintage Tennis<img id="icon" src="https://img.freepik.com/free-vector/two-racket-tennis-ball-illustration_24877-60158.jpg?size=338&ext=jpg&ga=GA1.1.1224184972.1714176000&semt=sph"></img></a>
 
       <div className="navbar-collapse" id="navbarSupportedContent">

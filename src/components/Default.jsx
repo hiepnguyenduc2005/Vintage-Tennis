@@ -5,12 +5,23 @@ import { supabase } from '../Client'
 import { useSearchParams } from 'react-router-dom';
 
 
-const Default = (props) => {
+const Default = (color) => {
 
     const [isFilterActive, setIsFilterActive] = useState(false);
 
     const [posts, setPosts] = useState([]);
     const [searchParams] = useSearchParams();
+    const [timeButton, setTimeButton] = useState(false);
+    const [voteButton, setVoteButton] = useState(false);
+
+    const handleBackgroundChange = (type) => {
+        // Reset all buttons to false
+        setTimeButton(false);
+        setVoteButton(false);
+        // Then activate the clicked one
+        if (type === 'time') setTimeButton(true);
+        if (type === 'vote') setVoteButton(true);
+    }
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -42,6 +53,7 @@ const Default = (props) => {
             return new Date(b.created_at) - new Date(a.created_at);
         })
         setPosts([...newPosts]);
+        handleBackgroundChange('time');
     }
 
     const orderVote = () => {
@@ -49,26 +61,30 @@ const Default = (props) => {
             return b.vote - a.vote;
         })
         setPosts([...newPosts]);
+        handleBackgroundChange('vote');
     }
     
     const filterQuestion = () => {
         setIsFilterActive(!isFilterActive);
     };
     
-
-    
-
-    
     return (
         <div className="summary">
-            <h1>Your Post Gallery!</h1>
-            <h2>Number: {posts.length}</h2>
-            <h3>Click on a post to see more details</h3>
-            <button onClick={orderTime}>Order by Time</button>
-            <button onClick={orderVote}>Order by Vote</button>
-            <button onClick={filterQuestion}>
-                {isFilterActive ? "Show All" : "Filter by Question"}
-            </button> 
+            <div class="row">
+                <div className="order col col-lg-4">
+                    <h4>Order by:</h4>
+                    <button className={`order-button ${timeButton ? 'timeActive' : ''}`} onClick={orderTime}>Time</button>
+                    <button className={`order-button ${voteButton ? 'voteActive' : ''}`} onClick={orderVote}>Vote</button>
+                </div>
+                <div className="search col col-lg-4">
+                </div>
+                <div className="order col col-lg-4 justify-content-md-end">                
+                    <button onClick={filterQuestion}>
+                        {isFilterActive ? "Show All" : "Filter by Question"}
+                    </button> 
+                </div>
+            </div>
+
             <div className="spacer"></div>        
             <div className="post-gallery">
             {

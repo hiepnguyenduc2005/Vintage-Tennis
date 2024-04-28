@@ -8,15 +8,46 @@ input[type=text], input[type=password]{
     font-size: 15px;
     padding-left: 20px;
 }
+
 input[type=checkbox]{
-    margin-top: 10px;
     height: 25px;
     width: 25px;
     border-radius: 8px;
     border: 1px solid transparent;
     font-size: 15px;
     padding-left: 20px;
+    margin: 0;
+}
 
+.comment-text {
+    display: block; /* Makes the text align properly next to the checkbox */
+}
+
+.question-item {
+    display: flex;
+    align-items: center; /* Vertically centers the checkbox and text */
+    justify-content: center; /* Aligns items to the start of the flex container */
+    gap: 10px; /* Adds some space between the checkbox and the question text */
+    margin-bottom: 10px; /* Adds some space between question items */
+}
+
+.comment-item {
+    display: flex;
+    align-items: center; /* Vertically centers the checkbox and text */
+    justify-content: start; /* Aligns items to the start of the flex container */
+    gap: 10px; /* Adds some space between the checkbox and the comment text */
+    margin-bottom: 10px; /* Adds some space between comment items */
+}
+
+.comment{
+    width: 75%;
+    min-width: 300px;
+}
+
+.comment-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .create {
@@ -56,6 +87,7 @@ input[type=submit]:hover {
 label {
     font-size: 20px;
     color: white;
+    display: block; 
 }
 
 .deleteButton {

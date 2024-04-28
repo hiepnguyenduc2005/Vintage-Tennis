@@ -6,12 +6,24 @@ import Default from './components/Default'
 import Create from './components/Create'
 import Post from './components/Post'
 import Edit from './components/Edit'
+import { useRef } from 'react'
 
 function App() {
+  const navbarRef = useRef(null);
+  const [navbarHeight, setNavbarHeight] = useState(0);
+
+  useEffect(() => {
+    // Ensure the navbar is rendered by placing this logic in the useEffect hook
+    if (navbarRef.current) {
+      setNavbarHeight(navbarRef.current.getBoundingClientRect().height);
+    }
+  }, []);
+
+  const [bgColor, setBgColor] = useState('black'); // Add state to control background color
   let element = useRoutes([
     {
       path: "/",
-      element:<Default />
+      element:<Default color={bgColor}/>
     },
     {
       path:"/post/:id",
@@ -26,8 +38,6 @@ function App() {
       element: <Create />
     }
   ]);
-
-  const [bgColor, setBgColor] = useState(''); // Add state to control background color
   
   // This will be passed to Sidebar
   const changeBackground = (color) => {
@@ -45,9 +55,9 @@ function App() {
   return (
     <div className='whole-page' style={{ backgroundColor: `#${bgColor}` }}>
       <div>
-      <Sidebar changeBackground={changeBackground} />
+        <Sidebar changeBackground={changeBackground} />
       </div>
-      <div className='content'>
+      <div className='content' style={{ paddingTop: navbarHeight + 'px'}}>
         {element}
       </div>
     </div>

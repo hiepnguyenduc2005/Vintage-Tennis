@@ -37,24 +37,27 @@ const Create = () => {
             <h1>Create Your Post!</h1>
             <form onSubmit={createPost} className='create'>
                 <input type="text" id="title" name="title" onChange={handleChange} placeholder='Title' autoFocus/><br />
-                <br/>
+                <br />
 
                 <textarea rows="4" cols="50" type="text" id="content" name="content" onChange={handleChange} placeholder='Content'/><br />
                 <br />
+
                 <input type="text" id="image" name="image" onChange={handleChange} placeholder='Image URL'/><br />
-                <br/>
+                <br />
 
                 <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/><br />
-                <br/>
+                <br />
 
-                <label for="question">Is it a question?</label>
-                <input
-                    type="checkbox"
-                    id="question"
-                    name="question"
-                    checked={post.question || false} // Ensure the checked attribute is controlled
-                    onChange={handleChange}
-                /><br />
+                <div className="question-item">
+                    <label for="question">Is it a question?</label>
+                    <input
+                        type="checkbox"
+                        id="question"
+                        name="question"
+                        checked={post.question || false} // Ensure the checked attribute is controlled
+                        onChange={handleChange}
+                    /><br />
+                </div>
 
                 <input type="submit" value="Submit" onClick={createPost} />
             </form>

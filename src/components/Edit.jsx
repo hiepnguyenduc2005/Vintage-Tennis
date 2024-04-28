@@ -28,6 +28,7 @@ const Edit = () => {
             ...prev,
             [index]: !prev[index]
         }));
+        console.log(commentsToDelete);
     };
 
     useEffect(() => {
@@ -61,22 +62,39 @@ const Edit = () => {
 
       
 
-    const updatePost = async (event) => {
+      const updatePost = async (event) => {
         event.preventDefault();
-        
-        let updatedComments = post.comment;
-        if (Array.isArray(updatedComments)) {
-            updatedComments = updatedComments.filter((_, index) => !commentsToDelete[index]);
-        }
-        
-        await supabase
-        .from('Tennis')
-        .update({title: post.title, content: post.content, image: post.image, password: post.password, question: post.question, comments: updatedComments})
-        .eq('id', id);
-
       
-        window.location = "/";
-    }
+        // Create a new array excluding the comments marked for deletion.
+        const remainingComments = post.comment.filter((_, index) => 
+          !commentsToDelete[index]
+        );
+        console.log('Remaining comments:', remainingComments);
+      
+        const updates = {
+          title: post.title,
+          content: post.content,
+          image: post.image,
+          password: post.password, // Ensure that password handling is secure and necessary
+          question: post.question,
+          comment: remainingComments,
+        };
+      
+        console.log('Updates to send:', updates);
+      
+        const { error } = await supabase
+          .from('Tennis')
+          .update(updates)
+          .eq('id', id);
+      
+        if (error) {
+          console.error('Error updating post:', error);
+        } else {
+          // If you're using React Router, use navigate from 'react-router-dom' instead of window.location
+            window.location = "/"; 
+        }
+      };
+      
     
     const deletePost = async (event) => {
         event.preventDefault();
@@ -91,8 +109,7 @@ const Edit = () => {
 
     return (
         <div>
-            <h1>Update Your Post!</h1>
-            <form onSubmit={updatePost}>
+            <form onSubmit={updatePost} className='create'>
             
                 <input type="text" id="title" name="title" value = {post.title} onChange={handleChange} placeholder='Title'/><br />
                 <br/>
@@ -104,30 +121,37 @@ const Edit = () => {
                 <br/>
 
                 <input type="password" id="password" name="password" value = {post.password} onChange={handleChange} placeholder='Password'/><br />
+                <br/>
 
-                <label for="question">Is it a question?</label>
-                <input
-                    type="checkbox"
-                    id="question"
-                    name="question"
-                    checked={post.question} // This should be checked based on the boolean value
-                    onChange={handleChange} // This will toggle the boolean value
-                /><br />
+                <div className="question-item">
+                    <label for="question">Is it a question?</label>
+                    <input
+                        type="checkbox"
+                        id="question"
+                        name="question"
+                        checked={post.question} // This should be checked based on the boolean value
+                        onChange={handleChange} // This will toggle the boolean value
+                    /><br />
+                </div>
 
                 <h3>Comments</h3>
-                {
-                    post.comment && post.comment.map((comment, index) => (
-                        <div key={index}>
-                            <input
-                                type="checkbox"
-                                checked={commentsToDelete[index]}
-                                onChange={() => handleCheckboxChange(index)}
-                            />
-                            {comment}
-                        </div>
-                    ))
-                }
-                <input type="submit" value="Submit" onClick={updatePost}/>
+                <div className="comment-container">
+                    <div className="comment">
+                    {
+                        post.comment && post.comment.map((comment, index) => (
+                            <div key={index} className="comment-item">
+                                <input
+                                    type="checkbox"
+                                    checked={commentsToDelete[index]}
+                                    onChange={() => handleCheckboxChange(index)}
+                                />
+                                <span className="comment-text">{comment}</span><br/>
+                            </div>
+                        ))
+                    }
+                    </div>
+                </div>
+                <input type="submit" value="Submit" />
                 <button className="deleteButton" onClick={deletePost}>Delete</button>
             </form>
         </div>
