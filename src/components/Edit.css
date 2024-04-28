@@ -107,3 +107,13 @@ label {
     margin-top: 20px;
     margin-bottom: 50px;
 }
+
+input[type=file]{
+    margin-top: 10px;
+    min-width: 300px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 15px;
+    padding-left: 20px;
+}

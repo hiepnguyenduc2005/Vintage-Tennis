@@ -6,18 +6,47 @@ import './Edit.css'
 import { supabase } from '../Client'
 
 
+
 const Edit = () => {
 
     const {id} = useParams();
     const [post, setPost] = useState({title: "", content: "", image: "", password: "", question: true, comment: []})
+    const [uploading, setUploading] = useState(false);
 
+    const handleFileChange = async (event) => {
+      setUploading(true);
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      let { error: uploadError } = await supabase.storage.from('images').upload(fileName, file);
+  
+      if (uploadError) {
+        setUploading(false);
+        console.error('Error uploading file:', uploadError);
+        return;
+      }
+  
+      let { data, error: urlError } = supabase.storage.from('images').getPublicUrl(fileName);
+      if (urlError) {
+        setUploading(false);
+        console.error('Error getting file URL:', urlError);
+        return;
+      }
+  
+      setPost((prev) => ({
+        ...prev,
+        image: data.publicUrl, // Set the public URL as the image property
+      }));
+      setUploading(false);
+    };
+
+    
     const handleChange = (event) => {
       const { name, type, value, checked } = event.target;
       setPost(prev => ({
           ...prev,
           [name]: type === 'checkbox' ? checked : value,
       }));
-      console.log(post);
     };
   
 
@@ -28,7 +57,6 @@ const Edit = () => {
             ...prev,
             [index]: !prev[index]
         }));
-        console.log(commentsToDelete);
     };
 
     useEffect(() => {
@@ -64,12 +92,14 @@ const Edit = () => {
 
       const updatePost = async (event) => {
         event.preventDefault();
-      
+        const userID = localStorage.getItem('userID');
         // Create a new array excluding the comments marked for deletion.
-        const remainingComments = post.comment.filter((_, index) => 
+        let remainingComments = [];
+        if (Array.isArray(post.comment)) {
+          remainingComments = post.comment.filter((_, index) => 
           !commentsToDelete[index]
         );
-        console.log('Remaining comments:', remainingComments);
+        }        
       
         const updates = {
           title: post.title,
@@ -78,10 +108,9 @@ const Edit = () => {
           password: post.password, // Ensure that password handling is secure and necessary
           question: post.question,
           comment: remainingComments,
+          user_id: userID
         };
-      
-        console.log('Updates to send:', updates);
-      
+            
         const { error } = await supabase
           .from('Tennis')
           .update(updates)
@@ -90,7 +119,6 @@ const Edit = () => {
         if (error) {
           console.error('Error updating post:', error);
         } else {
-          // If you're using React Router, use navigate from 'react-router-dom' instead of window.location
             window.location = "/"; 
         }
       };
@@ -117,14 +145,30 @@ const Edit = () => {
                 <textarea rows="4" cols="50" type="text" id="content" name="content" value = {post.content} onChange={handleChange} placeholder='Content' /><br />
                 <br/>
 
-                <input type="text" id="image" name="image" value = {post.image} onChange={handleChange} placeholder='Image URL'/><br />
-                <br/>
+                <input
+                  type="text"
+                  id="image"
+                  name="image"
+                  value={post.image}
+                  onChange={handleChange}
+                  placeholder='Image/Video URL'
+                  disabled={uploading}
+                /><br />
+                <label>
+                  Or upload an image:
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={handleFileChange}
+                    disabled={uploading}
+                  />
+                </label>
 
                 <input type="password" id="password" name="password" value = {post.password} onChange={handleChange} placeholder='Password'/><br />
                 <br/>
 
                 <div className="question-item">
-                    <label for="question">Is it a question?</label>
+                    <label htmlFor="question">Is it a question?</label>
                     <input
                         type="checkbox"
                         id="question"
@@ -145,13 +189,13 @@ const Edit = () => {
                                     checked={commentsToDelete[index]}
                                     onChange={() => handleCheckboxChange(index)}
                                 />
-                                <span className="comment-text">{comment}</span><br/>
+                                <span className="comment-text"><i>User <b>{Object.keys(comment)[0]}</b>:</i> {comment[Object.keys(comment)[0]]}</span><br/>
                             </div>
                         ))
                     }
                     </div>
                 </div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" disabled={uploading}/>
                 <button className="deleteButton" onClick={deletePost}>Delete</button>
             </form>
         </div>

@@ -3,9 +3,10 @@ import Card from './Card';
 import './Default.css'
 import { supabase } from '../Client'
 import { useSearchParams } from 'react-router-dom';
+import Spinner from './Spinner';
 
 
-const Default = (color) => {
+const Default = () => {
 
     const [isFilterActive, setIsFilterActive] = useState(false);
 
@@ -13,6 +14,8 @@ const Default = (color) => {
     const [searchParams] = useSearchParams();
     const [timeButton, setTimeButton] = useState(false);
     const [voteButton, setVoteButton] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleBackgroundChange = (type) => {
         // Reset all buttons to false
@@ -24,6 +27,7 @@ const Default = (color) => {
     }
 
     useEffect(() => {
+        setIsLoading(true);
         const fetchPosts = async () => {
             let query = supabase.from('Tennis').select();
     
@@ -43,6 +47,7 @@ const Default = (color) => {
                 }
                 setPosts(data);
             }
+            setIsLoading(false);
         };
     
         fetchPosts();
@@ -70,31 +75,37 @@ const Default = (color) => {
     
     return (
         <div className="summary">
-            <div class="row">
-                <div className="order col col-lg-4">
-                    <h4>Order by:</h4>
-                    <button className={`order-button ${timeButton ? 'timeActive' : ''}`} onClick={orderTime}>Time</button>
-                    <button className={`order-button ${voteButton ? 'voteActive' : ''}`} onClick={orderVote}>Vote</button>
+             {isLoading ? (
+                <Spinner /> // Render your spinner component here while loading
+            ) : (
+            <div>
+                <div class="row">
+                    <div className="order col col-lg-4">
+                        <h4>Order by:</h4>
+                        <button className={`order-button ${timeButton ? 'timeActive' : ''}`} onClick={orderTime}>Time</button>
+                        <button className={`order-button ${voteButton ? 'voteActive' : ''}`} onClick={orderVote}>Vote</button>
+                    </div>
+                    <div className="search col col-lg-4">
+                    </div>
+                    <div className="order col col-lg-4 justify-content-md-end">                
+                        <button onClick={filterQuestion}>
+                            {isFilterActive ? "Show All" : "Filter by Question"}
+                        </button> 
+                    </div>
                 </div>
-                <div className="search col col-lg-4">
-                </div>
-                <div className="order col col-lg-4 justify-content-md-end">                
-                    <button onClick={filterQuestion}>
-                        {isFilterActive ? "Show All" : "Filter by Question"}
-                    </button> 
-                </div>
-            </div>
 
-            <div className="spacer"></div>        
-            <div className="post-gallery">
-            {
-                posts && posts.length > 0 ?
-                posts.map((post) =>  
-                   <Card id={post.id} title={post.title} time={post.created_at} vote={post.vote}/>
-                ) : <h2>{'No Posts Yet 😞'}</h2>
-            }
-            </div>
-        </div>  
+                <div className="spacer"></div>        
+                <div className="post-gallery">
+                {
+                    posts && posts.length > 0 ?
+                    posts.map((post) =>  
+                    <Card id={post.id} title={post.title} time={post.created_at} vote={post.vote}/>
+                    ) : <h2>{'No Posts Yet 😞'}</h2>
+                }
+                </div>
+            </div> 
+        )}
+        </div>
     )
 }
 

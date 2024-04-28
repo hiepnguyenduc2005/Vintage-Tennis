@@ -23,7 +23,6 @@ const PostPage = () => {
         console.error('Error fetching comments', error);
       } else {
         setComments(commentsData.comment);
-        console.log(comments);
       }
     };
     
@@ -36,16 +35,17 @@ const PostPage = () => {
 
   const submitComment = async (event) => {
     event.preventDefault();
+    const userID = localStorage.getItem('userID');
     if (comments === null || comments.length === 0) {
       const { data, error } = await supabase
       .from('Tennis')
-      .update({ comment: [newComment] })
+      .update({ comment: [{[userID]: newComment}] })
       .eq('id', id);
     
       if (error) {
         console.error('Error submitting comment', error);
       } else {
-        setComments([newComment]);
+        setComments([{[userID]: newComment}]);
         setNewComment(""); // Reset the new comment input
       }
     }
@@ -53,13 +53,13 @@ const PostPage = () => {
       // Update the comments array in the database
       const { data, error } = await supabase
         .from('Tennis')
-        .update({ comment: [...comments, newComment] })
+        .update({ comment: [...comments, {[userID]: newComment}] })
         .eq('id', id);
       
       if (error) {
         console.error('Error submitting comment', error);
       } else {
-        setComments([...comments, newComment]);
+        setComments([...comments, {[userID]: newComment}]);
         setNewComment(""); // Reset the new comment input
       }
     }
@@ -74,7 +74,7 @@ const PostPage = () => {
       : 
         <ul style= {{textAlign: 'left'}}>
         {comments.map((comment, index) => (
-          <li key={index}>{comment}</li>
+          <li key={index}><i>User <b>{Object.keys(comment)[0]}</b>:</i> {comment[Object.keys(comment)[0]]}</li>
         ))}
       </ul>
       }

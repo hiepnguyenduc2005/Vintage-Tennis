@@ -7,10 +7,18 @@ import Create from './components/Create'
 import Post from './components/Post'
 import Edit from './components/Edit'
 import { useRef } from 'react'
+import { v4 as uuidv4 } from 'uuid'; 
 
 function App() {
   const navbarRef = useRef(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
+  useEffect(() => {
+    // Check if the user ID already exists in localStorage
+    if (!localStorage.getItem('userID')) {
+      // If not, create a new random user ID and store it
+      localStorage.setItem('userID', uuidv4());
+    }
+  }, []);
 
   useEffect(() => {
     // Ensure the navbar is rendered by placing this logic in the useEffect hook
@@ -47,8 +55,6 @@ function App() {
       setBgColor('d35400');
     else if (color === 'blue')
       setBgColor('3498db');
-
-    console.log(color);
   };
   
 
@@ -58,6 +64,9 @@ function App() {
         <Sidebar changeBackground={changeBackground} />
       </div>
       <div className='content' style={{ paddingTop: navbarHeight + 'px'}}>
+        <div style={{display:'flex', justifyContent:'end', paddingBottom:'10px'}}>
+          <b style={{paddingRight:'5px'}}>User:</b>{localStorage.getItem('userID')}
+        </div>
         {element}
       </div>
     </div>
