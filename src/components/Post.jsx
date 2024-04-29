@@ -70,10 +70,6 @@ const Post = () => {
     const isVideo = (url) => {
         return url.match(/\.(mp4|webm|ogg)$/i);
       };   
-      
-    const toRepost = () => {
-        window.location = `/repost/${id}`;
-    }
 
     const MediaComponent = () => {
         const youtubeMatch = post.image.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
@@ -117,7 +113,7 @@ const Post = () => {
                     <h4 className="content" style={{textAlign: 'left'}}>{post.content}</h4>
                     <MediaComponent /><br/><br/>
                     <button className="voteButton" onClick={updateCount} >👍{count}</button><br/><br/>
-                    <button className="voteButton" onClick={toRepost}>Repost</button><br/><br/>
+                    <Link to={`/repost/${post.id}`}><button className="voteButton">Repost</button></Link><br/><br/>
                     <form onSubmit={handleSubmit}>
                         <input type="password" id="password" name="password" onChange={handleChange} placeholder='Password'/>
                     </form><br/>
