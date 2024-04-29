@@ -2,9 +2,12 @@
 
 Submitted by: **Hiep Nguyen**
 
-This web app: **discusses legendary tennis matches**
+This web app **is a social media thread to discuss legendary tennis matches or historical events.**
 
-Time spent: **6** hours spent in total
+Time spent: **16** hours spent in total
+
+## Website
+[vintage-tennis.netlify.app](https://vintage-tennis.netlify.app/)
 
 ## Required Features
 
@@ -41,7 +44,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-[Video Walkthrough](https://imgur.com/a/WmDrGTR.gif)
+[Video Walkthrough](https://imgur.com/a/ZRindiV.gif)
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with LiceCAP  
 <!-- Recommended tools:
