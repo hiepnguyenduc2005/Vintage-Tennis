@@ -9,9 +9,10 @@ import Spinner from './Spinner';
 const Post = () => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0, created_at: "", user_id:"", repost: null});
+    const [post, setPost] = useState({title: "", content: "", image: "", password: "", vote: 0, created_at: "", user_id:"", repost: null, emotion: null});
     const [repost, setRepost] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [emotions, setEmotions] = useState("N/A");
 
     useEffect(() => {
         setIsLoading(true);
@@ -39,10 +40,32 @@ const Post = () => {
               console.log(repostData);
             }
 
+            if (data.emotion !== null) {
+              const track = {
+                '0': 'sad',
+                '1': 'joy',
+                '2': 'love',
+                '3': 'anger',
+                '4': 'fear',
+                '5': 'surprise',
+              };
+            
+              // Convert post.emotion to a Set to ensure uniqueness
+              const emotionSet = new Set(post.emotion);
+            
+              // Map the emotion indices to their corresponding names
+              const emotionNames = Array.from(emotionSet).map(e => track[e]).join(", ");
+            
+              // Set the resulting emotion names string
+              setEmotions(emotionNames);
+
+              console.log(emotions);
+            }
+
             setIsLoading(false);
           }
         fetchPosts();
-    }, [id]);
+    }, [id, emotions]);
 
     const [count, setCount] = useState(0);
     const [password, setPassword] = useState("");
@@ -70,7 +93,7 @@ const Post = () => {
     const isVideo = (url) => {
         return url.match(/\.(mp4|webm|ogg)$/i);
       };   
-
+   
     const MediaComponent = () => {
         const youtubeMatch = post.image.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
         if (youtubeMatch && youtubeMatch[1]) {
@@ -100,8 +123,10 @@ const Post = () => {
                 <Spinner /> // Render your spinner component here while loading
             ) : post ?
                 <div style={{width:'100%'}}>
-                    <h1 className="title" style={{textAlign: 'left'}}>{post.title}</h1>
-                    <h4 className="stat" style={{textAlign: 'left'}}><i><strong>Posted:</strong> {time}</i></h4>
+                   <div className="title-row">
+                        <h1 className="title" style={{ textAlign: 'left' }}>{post.title}</h1>
+                        <span className="emotion-label">{emotions}</span>
+                    </div>                    <h4 className="stat" style={{textAlign: 'left'}}><i><strong>Posted:</strong> {time}</i></h4>
                     <h4 className="stat" style={{textAlign: 'left'}}><i><strong>by User:</strong> {post.user_id}</i></h4>
                     {post.repost 
                     ? <div style={{display: 'flex', justifyItems: 'left', alignItems: 'center'}}>

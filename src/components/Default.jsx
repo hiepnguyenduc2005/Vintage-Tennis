@@ -72,6 +72,31 @@ const Default = () => {
     const filterQuestion = () => {
         setIsFilterActive(!isFilterActive);
     };
+
+    const emotionDetect = (emotion) => {
+        if (emotion !== null) {
+            const track = {
+              '0': 'sad',
+              '1': 'joy',
+              '2': 'love',
+              '3': 'anger',
+              '4': 'fear',
+              '5': 'surprise',
+            };
+          
+            // Convert post.emotion to a Set to ensure uniqueness
+            const emotionSet = new Set(emotion);
+          
+            // Map the emotion indices to their corresponding names
+            const emotionNames = Array.from(emotionSet).map(e => track[e]).join(", ");
+          
+            // Set the resulting emotion names string
+            return(emotionNames);
+        }
+        else {
+            return("N/A");
+        }
+    }
     
     return (
         <div className="summary">
@@ -99,7 +124,7 @@ const Default = () => {
                 {
                     posts && posts.length > 0 ?
                     posts.map((post) =>  
-                    <Card id={post.id} title={post.title} time={post.created_at} vote={post.vote}/>
+                    <Card id={post.id} title={post.title} time={post.created_at} vote={post.vote} emotions={emotionDetect(post.emotion)}/>
                     ) : <h2>{'No Posts Yet 😞'}</h2>
                 }
                 </div>

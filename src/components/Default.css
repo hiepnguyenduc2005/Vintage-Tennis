@@ -96,3 +96,18 @@ h3 {
     color: yellow;
     font: 18px !important;
 }
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.emotion-label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: purple;
+    padding: 10px;
+    background-color: yellow;
+    border-radius: 5px;
+}
